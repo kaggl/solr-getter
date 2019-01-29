@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      body {
+        white-space: pre;
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <input
+      size="150" 
+      type="text"
+      value="https://fedora.hephaistos.arz.oeaw.ac.at/solr/arche/query?q=*Kirche*&hl=on&hl.fl=_text_"
+      id="input"
+    ><button id="send" onclick="getSolr()">GET</button>
+    <div id="output"></div>
+  </body>
+  <script src="solr.js"></script>
+</html>
