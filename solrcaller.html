@@ -12,12 +12,13 @@
   </head>
   <body>
     <input
-      size="150" 
+      size="150"
       type="text"
-      value="https://fedora.hephaistos.arz.oeaw.ac.at/solr/arche/query?q=*Kirche*&hl=on&hl.fl=_text_"
+      value="Kirche"
       id="input"
-    ><button id="send" onclick="getSolr()">GET</button>
+    ><button id="send" onclick="getSolr('input')">GET</button>
     <div id="output"></div>
   </body>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="solr.js"></script>
 </html>
