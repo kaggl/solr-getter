@@ -21,26 +21,20 @@ function getSolr(addVal, page) {
   }
 }
 */
-
-let rows = 1;
-start = 0;
-const header = {
-  hl: 'on',
-  'hl.fl': '_text_',
-  rows,
-  start,
-}
-function getSolr(id) {
+function getSolr(id, start) {
   id = $(id).val();
-  header.q = `*${id}*`;
-    const ret = [];
-    let numFound;
-    getter(ret, id)
-    $("#output").html(`${ret.length} results usable, ${numFound} totally\n`);
-    $("#output").append(JSON.stringify(ret, null, "\t"));
-}
-function getter(ret, id) {
+  if (!start) start = 0;
   const url = 'https://fedora.hephaistos.arz.oeaw.ac.at/solr/arche/query';
+  const header = {
+    q: `*${id}*`,
+    hl: 'on',
+    'hl.fl': '_text_',
+    rows: 200,
+    start,
+  }
+  const ret = [];
+  let numFound;
+  //while (ret.length < 10) {
   $.getJSON(url, header, (data) => {
     const obj = data;
     numFound = obj.response.numFound;
@@ -51,9 +45,22 @@ function getter(ret, id) {
         ret.push(obj.response.docs[i]);
       }
     }
-    header.rows += rows;
-    console.log('ret', ret);
-    if (ret.length >= rows || !obj.response.docs.length) return ret;
-    else getter(ret);
+
+    $('#table').DataTable({
+      "data": ret,
+      "columns": [{
+          "data": "id"
+        },
+        {
+          "data": "highlight"
+        },
+        {
+          "data": "content_type"
+        }
+      ]
+    });
+
+    $("#output").html(`${ret.length} results usable, ${numFound} totally\n`);
   });
+  //}
 }

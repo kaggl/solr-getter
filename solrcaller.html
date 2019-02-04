@@ -9,6 +9,7 @@
         font-family: monospace;
       }
     </style>
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
   </head>
   <body>
     <input
@@ -17,8 +18,10 @@
       value="Kirche"
       id="input"
     ><button id="send" onclick="getSolr('input')">GET</button>
+    <table id="table" class="display" style="width:100%"></table>
     <div id="output"></div>
   </body>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" charset="utf-8"></script>
   <script src="solr.js"></script>
 </html>
