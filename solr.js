@@ -21,6 +21,20 @@ function getSolr(addVal, page) {
   }
 }
 */
+let t;
+$(document).ready(() => {
+  t = $('#table').DataTable({
+    "columns": [
+      {
+        "data": "highlight"
+      },
+      {
+        "data": "content_type"
+      }
+    ]
+  });
+});
+
 function getSolr(id, start) {
   id = $(id).val();
   if (!start) start = 0;
@@ -41,24 +55,15 @@ function getSolr(id, start) {
     console.log(obj);
     for (let i = 0; i < obj.response.docs.length; i += 1) {
       if (obj.highlighting[obj.response.docs[i].id]._text_) {
-        obj.response.docs[i].highlight = obj.highlighting[obj.response.docs[i].id]._text_[0];
+        obj.response.docs[i].highlight = obj.highlighting[obj.response.docs[i].id]._text_[0]
+          .replace(/\n/g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
         ret.push(obj.response.docs[i]);
       }
     }
 
-    $('#table').DataTable({
-      "data": ret,
-      "columns": [{
-          "data": "id"
-        },
-        {
-          "data": "highlight"
-        },
-        {
-          "data": "content_type"
-        }
-      ]
-    });
+    t.data = ret;
 
     $("#output").html(`${ret.length} results usable, ${numFound} totally\n`);
   });
