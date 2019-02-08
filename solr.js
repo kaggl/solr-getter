@@ -5,7 +5,8 @@ $(document).ready(() => {
       },
       {
         "data": "content_type"
-      }
+      },
+    ]
   });
 
   function getSolr(id, start) {
