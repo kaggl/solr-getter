@@ -1,4 +1,5 @@
 $(document).ready(() => {
+  $(".loader").hide();
   const t = $('#table').DataTable({
     "columns": [{
         "data": "highlight"
@@ -17,12 +18,13 @@ $(document).ready(() => {
       q: `*${id}*`,
       hl: 'on',
       'hl.fl': '_text_',
-      rows: 200,
+      rows: 200000,
+      timeAllowed: 5000,
       start,
     }
     const ret = [];
     let numFound;
-    //while (ret.length < 10) {
+    $(".loader").show();
     $.getJSON(url, header, (data) => {
       const obj = data;
       numFound = obj.response.numFound;
@@ -36,6 +38,7 @@ $(document).ready(() => {
           ret.push(obj.response.docs[i]);
         }
       }
+      $(".loader").hide();
       t.data().clear();
       t.rows.add(ret).draw();
 

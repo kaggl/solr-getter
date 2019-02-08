@@ -8,6 +8,31 @@
         white-space: pre;
         font-family: monospace;
       }
+      .loader {
+        height: 4px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        background-color: #ddd;
+      }
+      .loader:before{
+        display: block;
+        position: absolute;
+        content: "";
+        left: -200px;
+        width: 200px;
+        height: 4px;
+        background-color: #2980b9;
+        animation: loading 2s linear infinite;
+      }
+      @keyframes loading {
+          from {left: -200px; width: 30%;}
+          50% {width: 30%;}
+          70% {width: 70%;}
+          80% { left: 50%;}
+          95% {left: 120%;}
+          to {left: 100%;}
+      }
     </style>
     <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
   </head>
@@ -20,6 +45,7 @@
     ><button id="send">GET</button>
     <table id="table" class="display" style="width:60vw"></table>
     <div id="output"></div>
+    <div class="loader"></div>
   </body>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" charset="utf-8"></script>
