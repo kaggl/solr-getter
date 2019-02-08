@@ -18,8 +18,7 @@ $(document).ready(() => {
       q: `*${id}*`,
       hl: 'on',
       'hl.fl': '_text_',
-      rows: 200000,
-      timeAllowed: 5000,
+      rows: 416,
       start,
     }
     const ret = [];
@@ -32,7 +31,7 @@ $(document).ready(() => {
       for (let i = 0; i < obj.response.docs.length; i += 1) {
         if (obj.highlighting[obj.response.docs[i].id]._text_) {
           obj.response.docs[i].highlight = obj.highlighting[obj.response.docs[i].id]._text_[0]
-            .replace(/\n/g, '')
+            .replace(/\n|^\W|^\D/g, '')
             .replace(/\s+/g, ' ')
             .trim();
           ret.push(obj.response.docs[i]);
@@ -42,7 +41,7 @@ $(document).ready(() => {
       t.data().clear();
       t.rows.add(ret).draw();
 
-      $("#output").html(`${ret.length} results usable, ${numFound} totally\n`);
+      $("#output").html(`${ret.length} results usable, ${numFound} total\n`);
     });
   }
 
