@@ -13,6 +13,7 @@
       hl: 'on',
       'hl.fl': '_text_',
       rows: params.pageSize,
+      // sort: 'meta_title asc',
     }
     const ret = [];
     let numFound;
@@ -26,7 +27,8 @@
             .replace(/\n|^\W|^\D/g, '')
             .replace(/\s+/g, ' ')
             .trim();
-        } else obj.response.docs[i].highlight = 'zzzz';
+        } else obj.response.docs[i].highlight = 'no highlighting given';
+        if (!obj.response.docs[i].meta_title) obj.response.docs[i].meta_title = 'no title given';
         ret.push(obj.response.docs[i]);
       }
       $(".loader").hide();
