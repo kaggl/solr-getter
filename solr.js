@@ -1,31 +1,23 @@
-$(document).ready(() => {
   $(".loader").hide();
   const t = $('#table').DataTable({
-    "columns": [{
-        "data": "highlight"
-      },
-      {
-        "data": "content_type"
-      },
+    "columns": [
+      { "data": "meta_title" },
+      { "data": "highlight" },
+      { "data": "content_type" },
     ]
   });
 
-  function getSolr(id, start) {
-    id = $(id).val();
-    if (!start) start = 0;
-    const url = 'https://fedora.hephaistos.arz.oeaw.ac.at/solr/arche/query';
+  function getSolr(params) {
     const header = {
-      q: `*${id}*`,
+      q: `*${params.input}*`,
       hl: 'on',
       'hl.fl': '_text_',
-      rows: 416,
-      start,
+      rows: params.pageSize,
     }
     const ret = [];
     let numFound;
     $(".loader").show();
-    $.getJSON(url, header, (data) => {
-      const obj = data;
+    $.getJSON(params.solrEndpoint, header, (obj) => {
       numFound = obj.response.numFound;
       console.log(obj);
       for (let i = 0; i < obj.response.docs.length; i += 1) {
@@ -34,8 +26,8 @@ $(document).ready(() => {
             .replace(/\n|^\W|^\D/g, '')
             .replace(/\s+/g, ' ')
             .trim();
-          ret.push(obj.response.docs[i]);
-        }
+        } else obj.response.docs[i].highlight = 'zzzz';
+        ret.push(obj.response.docs[i]);
       }
       $(".loader").hide();
       t.data().clear();
@@ -44,8 +36,3 @@ $(document).ready(() => {
       $("#output").html(`${ret.length} results usable, ${numFound} total\n`);
     });
   }
-
-  $("#send").click(() => {
-    getSolr('input');
-  });
-});
