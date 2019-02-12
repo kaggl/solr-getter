@@ -67,4 +67,12 @@
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" charset="utf-8"></script>
   <script src="solr.js"></script>
+  <script>
+   $( document ).ready(function() {
+       var sorlquery = $('#input').SolrCaller({
+           'solrEndpoint': https://fedora.hephaistos.arz.oeaw.ac.at/solr/arche/query,
+           'pageSize': 10,
+           'searchInCollection': 'https://id.acdh.oeaw.ac.at/Troesmis/01_Berichte_Publikationen/'
+   };
+  </script>
 </html>
