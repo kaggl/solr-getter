@@ -31,17 +31,18 @@
       console.log(obj);
 
       for (let i = 0; i < obj.response.docs.length; i += 1) {
-        let inCollection = false;
-
-        if (obj.response.docs[i].meta_identifier) {
-          for (let j = 0; j < obj.response.docs[i].meta_identifier.length; j += 1) {
-            if (obj.response.docs[i].meta_identifier[j].indexOf(params.searchInCollection) > -1) {
-              console.log("put in col", obj.response.docs[i].meta_identifier[j]);
-              inCollection = true;
+        if (params.searchInCollection) {
+          let inCollection = false;
+          if (obj.response.docs[i].meta_identifier) {
+            for (let j = 0; j < obj.response.docs[i].meta_identifier.length; j += 1) {
+              if (obj.response.docs[i].meta_identifier[j].indexOf(params.searchInCollection) > -1) {
+                console.log("put in col", obj.response.docs[i].meta_identifier[j]);
+                inCollection = true;
+              }
             }
           }
+          if (!inCollection) continue;
         }
-        if (!inCollection) continue;
         if (obj.highlighting[obj.response.docs[i].id]._text_) {
           obj.response.docs[i].highlight = obj.highlighting[obj.response.docs[i].id]._text_[0]
             .replace(/\n|^\W|^\D/g, '')
