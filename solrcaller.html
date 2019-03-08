@@ -76,6 +76,8 @@
            pageSize: 25,
            searchInCollection: 'https://id.acdh.oeaw.ac.at/staribacher',
            input: $("#query").val(),
+           sparqlQuery: 'select ?res where {?res (<https://vocabs.acdh.oeaw.ac.at/schema#isPartOf> / ^<https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier>)* / <https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier> <https://id.acdh.oeaw.ac.at/staribacher>}',
+           sparqlEndpoint: 'https://fedora.hephaistos.arz.oeaw.ac.at/blazegraph/sparql',
          });
        });
      });
