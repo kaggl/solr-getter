@@ -1,6 +1,11 @@
   $(".loader").hide();
   let t = $('#table').DataTable({
-    "columns": [{
+    ajax: {
+      url: 'https://fedora.hephaistos.arz.oeaw.ac.at/solr/arche/query?q=*Kirche*&hl=on&hl.fl=_text_&rows=10',
+      dataSrc: 'response.docs'
+    },
+    //ajax: 'testresponse.txt',
+    columns: [{
         "data": "meta_title"
       },
       {
@@ -10,8 +15,6 @@
         "data": "content_type"
       },
     ],
-    // "processing": true,
-    // "serverSide": true,
   });
 
   function getSolr(params) {
