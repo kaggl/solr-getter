@@ -17,6 +17,9 @@
       button {
         width: 15vw;
       }
+      a {
+        color: black;
+      }
       .loader {
         height: 4px;
         width: 100%;
@@ -56,7 +59,7 @@
     </div>
     <table id="table" class="display" style="width:60vw">
       <thead>
-        <tr>
+        <tr id="columns">
           <th>Title</th>
           <th>Highlight</th>
           <th>Type</th>
@@ -74,10 +77,10 @@
          getSolr({
            solrEndpoint: 'https://fedora.hephaistos.arz.oeaw.ac.at/solr/arche/query',
            pageSize: 25,
-           searchInCollection: 'https://id.acdh.oeaw.ac.at/staribacher',
            input: $("#query").val(),
-           sparqlQuery: 'select ?res where {?res (<https://vocabs.acdh.oeaw.ac.at/schema#isPartOf> / ^<https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier>)* / <https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier> <https://id.acdh.oeaw.ac.at/staribacher>}',
-           sparqlEndpoint: 'https://fedora.hephaistos.arz.oeaw.ac.at/blazegraph/sparql',
+           columns: [{ 'Type': 'content_type' }, { 'column label': 'solr_object_key' }, { 'Title': 'meta_title' }, { 'highlight': 'highlight_with_link' }],
+           // sparqlQuery: 'select ?res where {?res (<https://vocabs.acdh.oeaw.ac.at/schema#isPartOf> / ^<https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier>)* / <https://vocabs.acdh.oeaw.ac.at/schema#hasIdentifier> <https://id.acdh.oeaw.ac.at/staribacher>}',
+           // sparqlEndpoint: 'https://fedora.hephaistos.arz.oeaw.ac.at/blazegraph/sparql',
          });
        });
      });
